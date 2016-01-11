@@ -1,74 +1,64 @@
 <?php
-App::uses('HttpSocket', 'Network/Http');
 
-class GeocodableBehavior extends ModelBehavior {
-    
-    /**
-     * Sets up the behavior.
-     *
-     * @param Model $Model
-     * @param array $settings
-     */
-    public function setup(Model $Model, $settings = array()) {
-        if (!isset($this->settings[$Model->alias])) {
-            $this->settings[$Model->alias] = array(
-                'addressColumn' => 'address',
-                'latitudeColumn' => 'latitude',
-                'longitudeColumn' => 'longitude',
-                'parameters' => array()
-            );
-        }
-        $this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], (array) $settings);
-    }
-    
+namespace chris48s\Geocoder\Model\Behavior;
+
+use Cake\Event\Event;
+use Cake\Network\Http\Client;
+use Cake\ORM\Behavior;
+use Cake\ORM\Entity;
+
+class GeocodableBehavior extends Behavior
+{
+    protected $_defaultConfig = [
+        'addressColumn' => 'address',
+        'latitudeColumn' => 'latitude',
+        'longitudeColumn' => 'longitude',
+        'parameters' => []
+    ];
+
     /**
      * Before save callback.
      *
-     * @param Model $model
+     * @param \Cake\Event\Event $event The beforeSave event that was fired
+     * @param \Cake\ORM\Entity $entity The entity that is going to be saved
      * @return boolean
      * @todo Throw exception or something if address column is not either an array or a string
      */
-    public function beforeSave(Model $Model, $options = array()) {
-        
-        $addressColumn = $this->settings[$Model->alias]['addressColumn'];
-        $latitudeColumn = $this->settings[$Model->alias]['latitudeColumn'];
-        $longitudeColumn = $this->settings[$Model->alias]['longitudeColumn'];
-        $parameters = (array) $this->settings[$Model->alias]['parameters'];
-        
+    public function beforeSave(Event $event, Entity $entity)
+    {
+        $addressColumn = $this->_config['addressColumn'];
+        $latitudeColumn = $this->_config['latitudeColumn'];
+        $longitudeColumn = $this->_config['longitudeColumn'];
+        $parameters = (array) $this->_config['parameters'];
+
         if (is_array($addressColumn)) {
-            $address = array();
+            $address = [];
             foreach ($addressColumn as $column) {
-                if (!empty($Model->data[$Model->alias][$column])) {
-                    $address[] = $Model->data[$Model->alias][$column]; 
+                if (!empty($entity->{$column})) {
+                    $address[] = $entity->{$column};
                 }
             }
             $address = implode(', ', $address);
+        } else {
+            $address = $entity->{$addressColumn};
         }
-        else {
-            $address = $Model->data[$Model->alias][$addressColumn];
-        }
-        
+
         $parameters['address'] = $address;
         $parameters['sensor'] = 'false';
-        
-        $http = new HttpSocket();
-        
-        $response = $http->get('http://maps.googleapis.com/maps/api/geocode/json', $parameters);
-        $response = json_decode($response);
-        
+
+        $url = 'http://maps.googleapis.com/maps/api/geocode/json';
+
+        $http = new Client();
+
+        $response = $http->get($url, $parameters);
+        $response = json_decode($response->body());
+
         if ($response->status == 'OK') {
-            $Model->data[$Model->alias][$latitudeColumn] = floatval($response->results[0]->geometry->location->lat);
-            $Model->data[$Model->alias][$longitudeColumn] = floatval($response->results[0]->geometry->location->lng);
+            $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
+            $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
             return true;
-        }
-        else {
-            $addressColumn = $this->settings[$Model->alias]['addressColumn'];
-            if (is_array($addressColumn)) {
-                $addressColumn = $addressColumn[0];
-            }
-            $Model->data[$Model->alias][$addressColumn] = array(
-                'Could not geocode address'
-            );
+        } else {
+            $entity->errors($addressColumn, 'Could not geocode address');
             return false;
         }
     }

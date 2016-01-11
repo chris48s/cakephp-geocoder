@@ -1,8 +1,12 @@
 <?php
-App::uses('HttpSocket', 'Network/Http');
 
-class GeocoderComponent extends Component {
-    
+namespace chris48s\Geocoder\Controller\Component;
+
+use Cake\Controller\Component;
+use Cake\Network\Http\Client;
+
+class GeocoderComponent extends Component
+{
     /**
      * Geocodes an address.
      *
@@ -11,18 +15,18 @@ class GeocoderComponent extends Component {
      * @return object
      * @todo Determine what to do if response status is an error
      */
-    public function geocode($address, $parameters = array()) {
-        
+    public function geocode($address, $parameters = [])
+    {
         $parameters['address'] = $address;
         $parameters['sensor'] = 'false';
-        
+
         $url = 'http://maps.googleapis.com/maps/api/geocode/json';
-        
-        $http = new HttpSocket();
-        
+
+        $http = new Client();
+
         $response = $http->get($url, $parameters);
-        $response = json_decode($response);
-        
+        $response = json_decode($response->body());
+
         return $response->results;
     }
 }
