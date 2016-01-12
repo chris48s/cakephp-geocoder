@@ -2,8 +2,14 @@
     "name": "chris48s/cakephp-geocoder",
     "description": "Geocoder controller component and model behavior",
     "type": "cakephp-plugin",
+    "keywords": ["cakephp", "geocode", "geocoding", "geocoder"],
+    "homepage": "https://github.com/chris48s/cakephp-geocoder",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Martin Bean",
+            "email": "martin@martinbean.co.uk"
+        },
         {
             "name": "chris48s",
             "email": "c.mshaw@yahoo.co.uk"
