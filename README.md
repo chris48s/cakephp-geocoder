@@ -136,4 +136,11 @@ class Stores extends Table
 }
 ```
 
+## Error Handling
+
+If the Google Maps Geocoding API returns a status code other than 200 OK, the Component will throw an exception of class `GeocoderException`.
+The Behavior will add a validation error to the target entity object which can be accessed using `$entity->errors()`.
+
+## Reporting Issues
+
 If you have any issues with this plugin then please feel free to create a new [Issue](https://github.com/chris48s/cakephp-geocoder/issues) on the [GitHub repository](https://github.com/chris48s/cakephp-geocoder). This plugin is licensed under the MIT License.
