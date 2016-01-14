@@ -6,6 +6,7 @@ use Cake\Event\Event;
 use Cake\Network\Http\Client;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
+use chris48s\Geocoder\Exception\GeocoderException;
 
 class GeocodableBehavior extends Behavior
 {
@@ -17,12 +18,25 @@ class GeocodableBehavior extends Behavior
     ];
 
     /**
+     * Behavior configuration
+     *
+     * @param array $config
+     * @throws GeocoderException if addressColumn is not an array or a string
+     * @return void
+     */
+    public function initialize(array $config = [])
+    {
+        if (!is_array($this->_config['addressColumn']) && !is_string($this->_config['addressColumn'])) {
+            throw new GeocoderException('addressColumn must be array or string');
+        }
+    }
+
+    /**
      * Before save callback.
      *
      * @param \Cake\Event\Event $event The beforeSave event that was fired
      * @param \Cake\ORM\Entity $entity The entity that is going to be saved
      * @return boolean
-     * @todo Throw exception or something if address column is not either an array or a string
      */
     public function beforeSave(Event $event, Entity $entity)
     {

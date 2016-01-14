@@ -136,6 +136,8 @@ class Stores extends Table
 }
 ```
 
+If `addressColumn` is not a string or an array, the Behavior will throw an exception of class `GeocoderException`.
+
 ## Error Handling
 
 If the Google Maps Geocoding API returns a status code other than 200 OK, the Component will throw an exception of class `GeocoderException`.
