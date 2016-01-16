@@ -138,6 +138,31 @@ class Stores extends Table
 
 If `addressColumn` is not a string or an array, the Behavior will throw an exception of class `GeocoderException`.
 
+By default, the behavior will not save the address if geocoding fails. This can also be configured using the `requireSuccess` key. Set this to false to save the address anyway even if geocoding fails:
+
+```php
+<?php
+namespace App\Model\Table;
+
+use Cake\ORM\Table;
+
+class Stores extends Table
+{
+
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+        $this->addBehavior('chris48s/Geocoder.Geocodable', [
+            'addressColumn' => [
+                'requireSuccess' => false
+            ]
+        ]);
+    }
+}
+```
+
+If using this setting, your `latitudeColumn` and `longitudeColumn` should be set to allow NULL.
+
 ## Error Handling
 
 If the Google Maps Geocoding API returns a status code other than 200 OK, the Component will throw an exception of class `GeocoderException`.

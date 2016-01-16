@@ -14,6 +14,7 @@ class GeocodableBehavior extends Behavior
         'addressColumn' => 'address',
         'latitudeColumn' => 'latitude',
         'longitudeColumn' => 'longitude',
+        'requireSuccess' => true,
         'parameters' => []
     ];
 
@@ -44,6 +45,7 @@ class GeocodableBehavior extends Behavior
         $latitudeColumn = $this->_config['latitudeColumn'];
         $longitudeColumn = $this->_config['longitudeColumn'];
         $parameters = (array) $this->_config['parameters'];
+        $requireSuccess = $this->_config['requireSuccess'];
 
         if (is_array($addressColumn)) {
             $address = [];
@@ -72,8 +74,12 @@ class GeocodableBehavior extends Behavior
             $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
             return true;
         } else {
-            $entity->errors($addressColumn, 'Could not geocode address');
-            return false;
+            if ($requireSuccess) {
+                $entity->errors($addressColumn, 'Could not geocode address');
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }
