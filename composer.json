@@ -19,6 +19,9 @@
         "cakephp/cakephp": "~3.0",
         "php": ">=5.4"
     },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "Chris48s\\Geocoder\\": "src"

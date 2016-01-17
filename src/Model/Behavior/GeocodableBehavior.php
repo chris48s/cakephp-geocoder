@@ -21,7 +21,7 @@ class GeocodableBehavior extends Behavior
     /**
      * Behavior configuration
      *
-     * @param array $config
+     * @param array $config Configuration options for the Behavior
      * @throws GeocoderException if addressColumn is not an array or a string
      * @return void
      */
@@ -37,14 +37,14 @@ class GeocodableBehavior extends Behavior
      *
      * @param \Cake\Event\Event $event The beforeSave event that was fired
      * @param \Cake\ORM\Entity $entity The entity that is going to be saved
-     * @return boolean
+     * @return bool
      */
     public function beforeSave(Event $event, Entity $entity)
     {
         $addressColumn = $this->_config['addressColumn'];
         $latitudeColumn = $this->_config['latitudeColumn'];
         $longitudeColumn = $this->_config['longitudeColumn'];
-        $parameters = (array) $this->_config['parameters'];
+        $parameters = (array)$this->_config['parameters'];
         $requireSuccess = $this->_config['requireSuccess'];
 
         if (is_array($addressColumn)) {

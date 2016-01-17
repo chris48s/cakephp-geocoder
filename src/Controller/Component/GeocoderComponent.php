@@ -11,8 +11,8 @@ class GeocoderComponent extends Component
     /**
      * Geocodes an address.
      *
-     * @param string $address
-     * @param array $parameters
+     * @param string $address The address or location to geocode
+     * @param array $parameters Additional params to pass to the Google Geocoding API
      * @throws GeocoderException if the API return a status code other than 200
      * @return object
      */
