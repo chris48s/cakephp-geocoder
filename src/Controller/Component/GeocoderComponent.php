@@ -26,7 +26,7 @@ class GeocoderComponent extends Component
         $http = new Client();
 
         $response = $http->get($url, $parameters);
-        if ($response->status != 'OK') {
+        if ($response->code != 200) {
             throw new GeocoderException('Google Maps Geocoding API returned status code ' . $response->code);
         }
         $response = json_decode($response->body());
