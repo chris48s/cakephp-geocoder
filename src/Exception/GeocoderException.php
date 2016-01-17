@@ -1,6 +1,6 @@
 <?php
 
-namespace chris48s\Geocoder\Exception;
+namespace Chris48s\Geocoder\Exception;
 
 use Cake\Core\Exception\Exception;
 

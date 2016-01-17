@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "chris48s\\Geocoder\\": "src"
+            "Chris48s\\Geocoder\\": "src"
         }
     }
 }

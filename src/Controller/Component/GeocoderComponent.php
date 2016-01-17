@@ -1,10 +1,10 @@
 <?php
 
-namespace chris48s\Geocoder\Controller\Component;
+namespace Chris48s\Geocoder\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Network\Http\Client;
-use chris48s\Geocoder\Exception\GeocoderException;
+use Chris48s\Geocoder\Exception\GeocoderException;
 
 class GeocoderComponent extends Component
 {

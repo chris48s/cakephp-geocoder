@@ -1,12 +1,12 @@
 <?php
 
-namespace chris48s\Geocoder\Model\Behavior;
+namespace Chris48s\Geocoder\Model\Behavior;
 
 use Cake\Event\Event;
 use Cake\Network\Http\Client;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
-use chris48s\Geocoder\Exception\GeocoderException;
+use Chris48s\Geocoder\Exception\GeocoderException;
 
 class GeocodableBehavior extends Behavior
 {

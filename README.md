@@ -25,7 +25,7 @@ and run `composer install` or `composer update`, as applicable.
 
 ## Loading the plugin
 
-Add the code `Plugin::load('chris48s/Geocoder');` to your `bootstrap.php`.
+Add the code `Plugin::load('Chris48s/Geocoder');` to your `bootstrap.php`.
 
 ## Using the Component
 
@@ -45,7 +45,7 @@ class StoresController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('chris48s/Geocoder.Geocoder');
+        $this->loadComponent('Chris48s/Geocoder.Geocoder');
     }
 
     public function search()
@@ -81,7 +81,7 @@ class Stores extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-        $this->addBehavior('chris48s/Geocoder.Geocodable');
+        $this->addBehavior('Chris48s/Geocoder.Geocodable');
     }
 }
 ```
@@ -102,7 +102,7 @@ class Stores extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-        $this->addBehavior('chris48s/Geocoder.Geocodable', [
+        $this->addBehavior('Chris48s/Geocoder.Geocodable', [
             'addressColumn' => 'street_address',
             'latitudeColumn' => 'lat',
             'longitudeColumn' => 'lng'
@@ -125,7 +125,7 @@ class Stores extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-        $this->addBehavior('chris48s/Geocoder.Geocodable', [
+        $this->addBehavior('Chris48s/Geocoder.Geocodable', [
             'addressColumn' => [
                 'street_address',
                 'locality',
@@ -152,7 +152,7 @@ class Stores extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-        $this->addBehavior('chris48s/Geocoder.Geocodable', [
+        $this->addBehavior('Chris48s/Geocoder.Geocodable', [
             'addressColumn' => [
                 'requireSuccess' => false
             ]
