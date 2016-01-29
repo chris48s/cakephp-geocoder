@@ -7,18 +7,13 @@ Thanks to Martin for making his code available under a MIT licence.
 
 ## Installation
 
+Install from [packagist](https://packagist.org/packages/chris48s/cakephp-geocoder) using [composer](https://getcomposer.org/).
 Add the following to your `composer.json`:
 
 ```
 "require": {
     "chris48s/cakephp-geocoder": "dev-master"
-},
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/chris48s/cakephp-geocoder.git"
-    }
-]
+}
 ```
 
 and run `composer install` or `composer update`, as applicable.
