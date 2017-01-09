@@ -12,7 +12,7 @@ Add the following to your `composer.json`:
 
 ```
 "require": {
-    "chris48s/cakephp-geocoder": "dev-master"
+    "chris48s/cakephp-geocoder": "^1.0.0"
 }
 ```
 
