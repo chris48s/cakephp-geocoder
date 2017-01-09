@@ -72,10 +72,12 @@ class GeocodableBehavior extends Behavior
         if ($response->status == 'OK') {
             $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
             $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
+
             return true;
         } else {
             if ($requireSuccess) {
                 $entity->errors($addressColumn, 'Could not geocode address');
+
                 return false;
             } else {
                 return true;
