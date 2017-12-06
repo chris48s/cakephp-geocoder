@@ -148,9 +148,7 @@ class Stores extends Table
     {
         parent::initialize($config);
         $this->addBehavior('Chris48s/Geocoder.Geocodable', [
-            'addressColumn' => [
-                'requireSuccess' => false
-            ]
+            'requireSuccess' => false,
         ]);
     }
 }
