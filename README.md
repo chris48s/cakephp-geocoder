@@ -156,6 +156,23 @@ class Stores extends Table
 
 If using this setting, your `latitudeColumn` and `longitudeColumn` should be set to allow NULL.
 
+## API Keys
+
+To use the plugin with a Google API key, [obtain a key](https://developers.google.com/maps/documentation/geocoding/get-api-key) and pass it in when calling the component
+
+```php
+$this->loadComponent('Chris48s/Geocoder.Geocoder');
+$geocodeResult = $this->Geocoder->geocode($location, ['key' => 'my-api-key']);
+```
+
+or when configuring the behaviour
+
+```php
+$this->addBehavior('Chris48s/Geocoder.Geocodable', [
+    'parameters' => ['key' => 'my-api-key']
+]);
+```
+
 ## Error Handling
 
 If the Google Maps Geocoding API returns a status code other than 200 OK, the Component will throw an exception of class `GeocoderException`.
