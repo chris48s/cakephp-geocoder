@@ -62,7 +62,7 @@ class GeocodableBehavior extends Behavior
         $parameters['address'] = $address;
         $parameters['sensor'] = 'false';
 
-        $url = 'http://maps.googleapis.com/maps/api/geocode/json';
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json';
 
         $http = new Client();
 
