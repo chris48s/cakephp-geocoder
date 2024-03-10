@@ -27,7 +27,7 @@ class GeocodableBehavior extends Behavior
      * @throws GeocoderException if addressColumn is not an array or a string
      * @return void
      */
-    public function initialize(array $config = [])
+    public function initialize(array $config = []) : void
     {
         if (!is_array($this->_config['addressColumn']) && !is_string($this->_config['addressColumn'])) {
             throw new GeocoderException('addressColumn must be array or string');
@@ -71,7 +71,7 @@ class GeocodableBehavior extends Behavior
         $response = $http->get($url, $parameters);
         $response = json_decode($response->body());
 
-        if ($response->status == 'OK') {
+        if ($response->isOk()) {
             $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
             $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
 
