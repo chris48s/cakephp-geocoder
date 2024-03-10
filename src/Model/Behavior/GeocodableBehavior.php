@@ -3,7 +3,6 @@
 namespace Chris48s\Geocoder\Model\Behavior;
 
 use Cake\Event\Event;
-//use Cake\Network\Http\Client;
 use Cake\Http\Client;
 
 use Cake\ORM\Behavior;
@@ -69,7 +68,7 @@ class GeocodableBehavior extends Behavior
         $http = new Client();
 
         $response = $http->get($url, $parameters);
-        $response = json_decode($response->body());
+        $response = json_decode($response->getStringBody());
 
         if ($response->isOk()) {
             $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
