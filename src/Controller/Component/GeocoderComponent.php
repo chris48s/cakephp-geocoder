@@ -3,7 +3,9 @@
 namespace Chris48s\Geocoder\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Network\Http\Client;
+// use Cake\Network\Http\Client;
+use Cake\Http\Client;
+
 use Chris48s\Geocoder\Exception\GeocoderException;
 
 class GeocoderComponent extends Component
