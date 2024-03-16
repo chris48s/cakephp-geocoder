@@ -70,7 +70,7 @@ class GeocodableBehavior extends Behavior
         $response = $http->get($url, $parameters);
         $response = json_decode($response->getStringBody());
 
-        if ($response->isOk()) {
+        if ($response->isSuccess()) {
             $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
             $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
 
