@@ -3,7 +3,8 @@
 namespace Chris48s\Geocoder\Model\Behavior;
 
 use Cake\Event\Event;
-use Cake\Network\Http\Client;
+use Cake\Http\Client;
+
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Chris48s\Geocoder\Exception\GeocoderException;
@@ -25,7 +26,7 @@ class GeocodableBehavior extends Behavior
      * @throws GeocoderException if addressColumn is not an array or a string
      * @return void
      */
-    public function initialize(array $config = [])
+    public function initialize(array $config = []) : void
     {
         if (!is_array($this->_config['addressColumn']) && !is_string($this->_config['addressColumn'])) {
             throw new GeocoderException('addressColumn must be array or string');
@@ -67,9 +68,9 @@ class GeocodableBehavior extends Behavior
         $http = new Client();
 
         $response = $http->get($url, $parameters);
-        $response = json_decode($response->body());
+        $response = json_decode($response->getStringBody());
 
-        if ($response->status == 'OK') {
+        if ($response->isSuccess()) {
             $entity->{$latitudeColumn} = floatval($response->results[0]->geometry->location->lat);
             $entity->{$longitudeColumn} = floatval($response->results[0]->geometry->location->lng);
 

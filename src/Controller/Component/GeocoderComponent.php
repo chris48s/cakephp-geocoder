@@ -3,7 +3,8 @@
 namespace Chris48s\Geocoder\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Network\Http\Client;
+use Cake\Http\Client;
+
 use Chris48s\Geocoder\Exception\GeocoderException;
 
 class GeocoderComponent extends Component
@@ -26,8 +27,8 @@ class GeocoderComponent extends Component
         $http = new Client();
 
         $response = $http->get($url, $parameters);
-        if ($response->code != 200) {
-            throw new GeocoderException('Google Maps Geocoding API returned status code ' . $response->code);
+        if ($response->getStatusCode() !== 200) {
+            throw new GeocoderException('Google Maps Geocoding API returned status code ' . $response->getStatusCode());
         }
         $response = json_decode($response->body());
 
