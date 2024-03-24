@@ -77,7 +77,7 @@ class GeocodableBehavior extends Behavior
             return true;
         } else {
             if ($requireSuccess) {
-                $entity->setError([$addressColumn => ['Could not geocode address']]);
+                $entity->setErrors([$addressColumn => ['Could not geocode address']]);
 
                 return false;
             } else {
